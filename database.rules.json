@@ -6,16 +6,18 @@
     "memes": {
       "public": {
         ".read": true,
+        /* ".read": "auth != null", */
         "$memeID": {
-          /* data doesn't exist or data exist and child userID matches googleAuth id */
-          ".write": "!data.exists() || (data.exists() && data.child('userID').val() === auth.uid)",
+          /* child userID matches googleAuth id */
+          ".write":"data.child('userID').val() === auth.uid",
           ".validate": "newData.child('userID').val() === auth.uid"
         }
       },
       "private": {
-        "$uid": {
-          ".read": "$uid === auth.uid",
-          ".write": "$uid === auth.uid",
+        "$userID": {
+          /* currently authenticated user is the same user who previously wrote data at this node*/
+          ".read": "auth.uid === $userID",
+          ".write": "auth.uid === $userID",
           "$memeID": {
             ".validate": "newData.child('userID').val() === auth.uid"
           }
@@ -25,9 +27,26 @@
   }
 }
 
-/* {
+/* no security requirement */
+{
   "rules":{
     ".read": true,
     ".write": true
+  }
+}
+
+/* no one can access */
+/* {
+  "rules":{
+    ".read": false,
+    ".write": false
+  }
+} */
+
+/* google authenticated users only */
+/* {
+  "rules":{
+    ".read": "auth != null",
+    ".write": "auth != null"
   }
 } */
