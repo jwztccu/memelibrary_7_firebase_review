@@ -1,32 +1,33 @@
 /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
 
 
-/* {
+{
   "rules": {
-    "comments": {
+    "memes": {
       "public": {
         ".read": true,
-        "$commentID": {
+        "$memeID": {
+          /* data doesn't exist or data exist and child userID matches googleAuth id */
           ".write": "!data.exists() || (data.exists() && data.child('userID').val() === auth.uid)",
           ".validate": "newData.child('userID').val() === auth.uid"
         }
       },
-      "users": {
-        "$userID": {
-          ".read": "auth.uid === $userID",
-          ".write": "auth.uid === $userID",
-          "$commentID": {
+      "private": {
+        "$uid": {
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid",
+          "$memeID": {
             ".validate": "newData.child('userID').val() === auth.uid"
           }
         }
       }
     }
   }
-} */
+}
 
-{
+/* {
   "rules":{
     ".read": true,
     ".write": true
   }
-}
+} */
