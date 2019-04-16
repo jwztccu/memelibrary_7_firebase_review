@@ -8,7 +8,7 @@
 
   <script>
     var tag = this;
-    
+
     // Firebase provide us with easy methods to sign-in and sign-out. We can access all Firebase authentication methods by creating an Auth Object via the following:
     this.currentUser = firebase.auth().currentUser;
 

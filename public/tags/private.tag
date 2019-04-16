@@ -1,6 +1,6 @@
 <private>
     <div class="login" if={currentUser}>
-      <p>Welcome to the admin section, {currentUser.email}</p>
+      <p>Welcome to the admin section, {currentUser.uid}</p>
       <button type="button" onclick={ logOut}>Log Out</button>
     </div>
 
@@ -34,19 +34,23 @@
       <p>NO MEMEs. Add a meme from above.</p>
     </div>
 
-    <admin_entry each={ myMemes }></admin_entry>
+    <admin_entry each={ myMeme in myMemes }></admin_entry>
 
 
 <script>
   var tag= this;
   // console.log("parent " ,this.parent.currentUser);
 
-  this.currentUser = firebase.auth().currentUser;
+  this.currentUser = user.currentUser;
+  // console.log(this.currentUser.uid);
 
-  this.logOut = this.parent.logOut;
+  // this.logOut = this.parent.logOut;
 
-  // var messagesRef = rootRef.child("memes");
-  var myRef = rootRef.child('memes/private/' + this.currentUser.uid);
+  this.logOut = function () {
+    console.log("logging out...");
+    user.signOut();
+  }
+  var myRef = rootRef.child('memes/private/' + tag.currentUser.uid);
 
   //local database is always empty, and read dynamicly from fb.
   this.myMemes = [];

@@ -1,7 +1,7 @@
 <meme class="col-sm-4">
 	<div class="frame">
-		<h3>{ caption }</h3>
-		<img src={ url } alt="user image"/>
+		<h3>{ myMeme.caption }</h3>
+		<img src={ myMeme.url } alt="user image"/>
 	</div>
 
 
