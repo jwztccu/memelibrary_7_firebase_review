@@ -40,7 +40,6 @@
 <script>
   var tag= this;
   // console.log("parent " ,this.parent.currentUser);
-
   this.currentUser = user.currentUser;
   // console.log(this.currentUser.uid);
 
@@ -50,6 +49,7 @@
     console.log("logging out...");
     user.signOut();
   }
+
   var myRef = rootRef.child('memes/private/' + tag.currentUser.uid);
 
   //local database is always empty, and read dynamicly from fb.
@@ -166,12 +166,10 @@
       observable.trigger('updateMemes', tempData);
     });
   }
-
-
-
+  
 </script>
 
-<style></style> -->
+<style></style>
 
 
 </private>

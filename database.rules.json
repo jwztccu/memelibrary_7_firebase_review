@@ -1,21 +1,18 @@
 /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
 
-
 {
   "rules": {
     "memes": {
       "public": {
         ".read": true,
-        /* ".read": "auth != null", */
         "$memeID": {
-          /* child userID matches googleAuth id */
-          ".write":"data.child('userID').val() === auth.uid",
+          /* ".write": "data.child('userID').val() === auth.uid", */
+          ".write": "!data.exists() || data.exists() && data.child('userID').val() === auth.uid",
           ".validate": "newData.child('userID').val() === auth.uid"
         }
       },
       "private": {
         "$userID": {
-          /* currently authenticated user is the same user who previously wrote data at this node*/
           ".read": "auth.uid === $userID",
           ".write": "auth.uid === $userID",
           "$memeID": {
@@ -26,27 +23,3 @@
     }
   }
 }
-
-/* no security requirement */
-{
-  "rules":{
-    ".read": true,
-    ".write": true
-  }
-}
-
-/* no one can access */
-/* {
-  "rules":{
-    ".read": false,
-    ".write": false
-  }
-} */
-
-/* google authenticated users only */
-/* {
-  "rules":{
-    ".read": "auth != null",
-    ".write": "auth != null"
-  }
-} */
