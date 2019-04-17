@@ -12,24 +12,7 @@
 	<about show={ page === "about" }></about>
 
 	<script>
-		var that = this;
 
-		// default page when the website first loads
-		// show about page upon first loading the site
-		this.page = "about";
-
-		// Routing Function
-		// When user clicks a menu bar item, url changes
-		//route function below gets triggered
-		//page variable updates
-		route(function(urlFragment) {
-			// console.log(urlFragment);
-			that.page = urlFragment;
-			that.update();
-		});
-
-		// Start the router and execute it [true]
-		route.start(true);
 	</script>
 
 
